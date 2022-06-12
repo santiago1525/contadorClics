@@ -2,43 +2,52 @@ import './App.css';
 import logo from './images/logo.png';
 import Boton from './componentes/Boton';
 import Contador from './componentes/Contador';
-import { useState } from 'react';
+import React from 'react';
 
-function App() {
 
-  const [numClics, setNumClics] = useState(0);
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      numClics: 0
+    };
 
-  const contadorClic = () => {
-    setNumClics (numClics + 1);
-  };
+    this.contadorClic = this.contadorClic.bind(this);
+    this.reiniciarContador = this.reiniciarContador.bind(this);
+  }
+  contadorClic() {
+    this.setState(({ numClics }) => ({ numClics: numClics + 1 }));
+  }
 
-  const reiniciarContador = () => {
-    setNumClics(0);
-  };
+  reiniciarContador() {
+    this.setState(({ numClics: 0}))
+  }
 
-  return (
-    <div className='App'>
-      <div className='logo-contenedor'>
-        <img 
-          className='logo'
-          src={logo}
-          alt='Logo'
-        />
+  render(){
+    return (
+      <div className='App'>
+        <div className='logo-contenedor'>
+          <img 
+            className='logo'
+            src={logo}
+            alt='Logo'
+          />
+        </div>
+        <div className='contenedor-principal'>
+          <Contador 
+            numClics={this.state.numClics} />
+          <Boton 
+            texto='Clic'
+            esBotonDeClic={true}
+            manejarClic={this.contadorClic} />
+          <Boton 
+            texto='Reiniciar'
+            esBotonDeClic={false}
+            manejarClic={this.reiniciarContador} />
+        </div>
       </div>
-      <div className='contenedor-principal'>
-        <Contador 
-          numClics={numClics} />
-        <Boton 
-          texto='Clic'
-          esBotonDeClic={true}
-          manejarClic={contadorClic} />
-        <Boton 
-          texto='Reiniciar'
-          esBotonDeClic={false}
-          manejarClic={reiniciarContador} />
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

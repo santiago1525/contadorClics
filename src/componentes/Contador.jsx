@@ -1,11 +1,16 @@
-import '../hojasDeEstilo/Contador.css'
+import '../hojasDeEstilo/Contador.css';
+import React from 'react';
 
-function Contador({ numClics }) {
-    return (
-        <div className='contador'>
-            {numClics}
-        </div>
-    );
+class Contador extends React.Component {
+    render(){
+        return(
+            <div className='contador'>
+                {this.props.numClics}
+            </div>
+        );
+    }
 }
+
+
 
 export default Contador;
